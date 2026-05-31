@@ -1,0 +1,21 @@
+{
+  "name": "project-service",
+  "version": "1.0.0",
+  "description": "Service de gestion des projets pour TeamTask",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "migrate": "node migrate.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "dotenv": "^16.0.3",
+    "cors": "^2.8.5",
+    "mongoose": "^7.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

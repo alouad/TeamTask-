@@ -1,0 +1,256 @@
+{
+  "info": {
+    "name": "TeamTask - Tests Auth & Project",
+    "description": "Collection de tests pour les services Auth et Project",
+    "version": "1.0.0"
+  },
+  "item": [
+    {
+      "name": "🔐 AUTH SERVICE",
+      "item": [
+        {
+          "name": "Health Check Auth",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3001",
+            "header": []
+          }
+        },
+        {
+          "name": "Register - Nouveau Manager",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:3001/register",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"alice.manager@test.com\",\n  \"password\": \"password123\",\n  \"role\": \"manager\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Register - Nouveau Member",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:3001/register",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"bob.member@test.com\",\n  \"password\": \"password123\",\n  \"role\": \"member\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login - Manager",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:3001/login",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"manager@test.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login - Alice Manager",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:3001/login",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"alice.manager@test.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login - Member",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:3001/login",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"bob.member@test.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Verify Token - Manager",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3001/verify",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "📁 PROJECT SERVICE",
+      "item": [
+        {
+          "name": "Health Check Project",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3002",
+            "header": []
+          }
+        },
+        {
+          "name": "Get All Projects (Manager)",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3002/projects",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Get Project by ID",
+          "request": {
+            "method": "GET",
+            "url": "http://localhost:3002/projects/1",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_TOKEN_HERE"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Create Project (Manager Only)",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:3002/projects",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_MANAGER_TOKEN_HERE"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Nouveau Projet IA\",\n  \"description\": \"Développement d'une plateforme d'intelligence artificielle\",\n  \"endDate\": \"2025-12-31\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Project - Projet Web",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:3002/projects",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_MANAGER_TOKEN_HERE"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Refonte Site Web\",\n  \"description\": \"Moderniser le design et les fonctionnalités du site\",\n  \"endDate\": \"2025-08-15\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Project (Manager Only)",
+          "request": {
+            "method": "PATCH",
+            "url": "http://localhost:3002/projects/1",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_MANAGER_TOKEN_HERE"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Site Web Startup - UPDATED\",\n  \"description\": \"Création du site web officiel avec nouveau design\",\n  \"endDate\": \"2025-07-15\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Project (Manager Only)",
+          "request": {
+            "method": "DELETE",
+            "url": "http://localhost:3002/projects/1",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_MANAGER_TOKEN_HERE"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Try Create Project as Member (Should Fail)",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:3002/projects",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer YOUR_MEMBER_TOKEN_HERE"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Projet Non Autorisé\",\n  \"description\": \"Ceci devrait échouer\",\n  \"endDate\": \"2025-12-31\"\n}"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
