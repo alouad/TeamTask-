@@ -14,7 +14,7 @@ export function authenticateJWT(req, res, next) {
       return res.status(401).json({ error: 'Unauthorized: Missing token' });
     }
 
-    const secret = process.env.JWT_SECRET || 'teamtask-secret-key';
+    const secret = process.env.JWT_SECRET || 'secret_key_change_in_production';
 
     jwt.verify(token, secret, (err, decoded) => {
       if (err) {
