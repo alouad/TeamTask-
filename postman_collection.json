@@ -1,26 +1,32 @@
 {
   "info": {
-    "name": "TeamTask - Tests Auth & Project",
-    "description": "Collection de tests pour les services Auth et Project",
-    "version": "1.0.0"
+    "_postman_id": "c1f7a0b3-f099-4d6c-bb98-ef22a945620b",
+    "name": "TeamTask - Full Integrated Verification",
+    "description": "Unified Postman collection for all 4 microservices (Auth, Projects, Tasks, and History) with standard Schema definitions.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
-      "name": "🔐 AUTH SERVICE",
+      "name": "🔐 AUTH SERVICE (Port 3001)",
       "item": [
         {
           "name": "Health Check Auth",
           "request": {
             "method": "GET",
-            "url": "http://localhost:3001",
-            "header": []
-          }
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001"
+            }
+          },
+          "response": []
         },
         {
           "name": "Register - Nouveau Manager",
           "request": {
             "method": "POST",
-            "url": "http://localhost:3001/register",
             "header": [
               {
                 "key": "Content-Type",
@@ -30,14 +36,21 @@
             "body": {
               "mode": "raw",
               "raw": "{\n  \"email\": \"alice.manager@test.com\",\n  \"password\": \"password123\",\n  \"role\": \"manager\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["register"]
             }
-          }
+          },
+          "response": []
         },
         {
           "name": "Register - Nouveau Member",
           "request": {
             "method": "POST",
-            "url": "http://localhost:3001/register",
             "header": [
               {
                 "key": "Content-Type",
@@ -47,31 +60,21 @@
             "body": {
               "mode": "raw",
               "raw": "{\n  \"email\": \"bob.member@test.com\",\n  \"password\": \"password123\",\n  \"role\": \"member\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["register"]
             }
-          }
+          },
+          "response": []
         },
         {
           "name": "Login - Manager",
           "request": {
             "method": "POST",
-            "url": "http://localhost:3001/login",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"manager@test.com\",\n  \"password\": \"password123\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Login - Alice Manager",
-          "request": {
-            "method": "POST",
-            "url": "http://localhost:3001/login",
             "header": [
               {
                 "key": "Content-Type",
@@ -81,14 +84,21 @@
             "body": {
               "mode": "raw",
               "raw": "{\n  \"email\": \"alice.manager@test.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["login"]
             }
-          }
+          },
+          "response": []
         },
         {
           "name": "Login - Member",
           "request": {
             "method": "POST",
-            "url": "http://localhost:3001/login",
             "header": [
               {
                 "key": "Content-Type",
@@ -98,159 +108,271 @@
             "body": {
               "mode": "raw",
               "raw": "{\n  \"email\": \"bob.member@test.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["login"]
             }
-          }
-        },
-        {
-          "name": "Verify Token - Manager",
-          "request": {
-            "method": "GET",
-            "url": "http://localhost:3001/verify",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer YOUR_TOKEN_HERE"
-              }
-            ]
-          }
+          },
+          "response": []
         }
       ]
     },
     {
-      "name": "📁 PROJECT SERVICE",
+      "name": "📁 PROJECT SERVICE (Port 3002)",
       "item": [
         {
           "name": "Health Check Project",
           "request": {
             "method": "GET",
-            "url": "http://localhost:3002",
-            "header": []
-          }
-        },
-        {
-          "name": "Get All Projects (Manager)",
-          "request": {
-            "method": "GET",
-            "url": "http://localhost:3002/projects",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer YOUR_TOKEN_HERE"
-              }
-            ]
-          }
-        },
-        {
-          "name": "Get Project by ID",
-          "request": {
-            "method": "GET",
-            "url": "http://localhost:3002/projects/1",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer YOUR_TOKEN_HERE"
-              }
-            ]
-          }
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3002",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3002"
+            }
+          },
+          "response": []
         },
         {
           "name": "Create Project (Manager Only)",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{manager_token}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
-            "url": "http://localhost:3002/projects",
             "header": [
               {
                 "key": "Content-Type",
                 "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer YOUR_MANAGER_TOKEN_HERE"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Nouveau Projet IA\",\n  \"description\": \"Développement d'une plateforme d'intelligence artificielle\",\n  \"endDate\": \"2025-12-31\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Create Project - Projet Web",
-          "request": {
-            "method": "POST",
-            "url": "http://localhost:3002/projects",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer YOUR_MANAGER_TOKEN_HERE"
               }
             ],
             "body": {
               "mode": "raw",
               "raw": "{\n  \"name\": \"Refonte Site Web\",\n  \"description\": \"Moderniser le design et les fonctionnalités du site\",\n  \"endDate\": \"2025-08-15\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3002/projects",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3002",
+              "path": ["projects"]
             }
-          }
+          },
+          "response": []
         },
         {
-          "name": "Update Project (Manager Only)",
+          "name": "Get All Projects",
           "request": {
-            "method": "PATCH",
-            "url": "http://localhost:3002/projects/1",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer YOUR_MANAGER_TOKEN_HERE"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Site Web Startup - UPDATED\",\n  \"description\": \"Création du site web officiel avec nouveau design\",\n  \"endDate\": \"2025-07-15\"\n}"
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{manager_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3002/projects",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3002",
+              "path": ["projects"]
             }
-          }
-        },
-        {
-          "name": "Delete Project (Manager Only)",
-          "request": {
-            "method": "DELETE",
-            "url": "http://localhost:3002/projects/1",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer YOUR_MANAGER_TOKEN_HERE"
-              }
-            ]
-          }
-        },
-        {
-          "name": "Try Create Project as Member (Should Fail)",
-          "request": {
-            "method": "POST",
-            "url": "http://localhost:3002/projects",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer YOUR_MEMBER_TOKEN_HERE"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Projet Non Autorisé\",\n  \"description\": \"Ceci devrait échouer\",\n  \"endDate\": \"2025-12-31\"\n}"
-            }
-          }
+          },
+          "response": []
         }
       ]
+    },
+    {
+      "name": "📝 TASK SERVICE (Port 3003)",
+      "item": [
+        {
+          "name": "Task Service Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3003/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3003",
+              "path": ["health"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create a Task (Manager Only)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{manager_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Implement RabbitMQ Flow\",\n  \"description\": \"Write publisher in task service and consumer in history service\",\n  \"projectId\": \"PASTE_CREATED_PROJECT_ID_HERE\",\n  \"assignedUser\": \"bob.member@test.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3003/tasks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3003",
+              "path": ["tasks"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Tasks",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{member_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3003/tasks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3003",
+              "path": ["tasks"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Task Status (Triggers RabbitMQ Event)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{member_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"in_progress\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3003/tasks/{{task_id}}/status",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3003",
+              "path": ["tasks", "{{task_id}}", "status"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "📜 HISTORY SERVICE (Port 3004)",
+      "item": [
+        {
+          "name": "History Service Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3004/health",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3004",
+              "path": ["health"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Full History Logs (Manager Only)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{manager_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3004/history",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3004",
+              "path": ["history"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "task_id",
+      "value": "PASTE_TASK_ID_HERE",
+      "type": "string"
+    },
+    {
+      "key": "manager_token",
+      "value": "PASTE_MANAGER_JWT_HERE",
+      "type": "string"
+    },
+    {
+      "key": "member_token",
+      "value": "PASTE_MEMBER_JWT_HERE",
+      "type": "string"
     }
   ]
 }
